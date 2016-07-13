@@ -1,21 +1,27 @@
 'use strict';
+
+/* Dependencies */
 const express = require('express');
-const app = require('express')();
+const Server = require('express')();
 const compression = require('compression');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-require('node-jsx').install({ harmony: true });
+const bodyParser = require('body-parser');
+const path = require('path');
 
-const Component = require('../shared/components/Component.js');
+// Node needs to interpret react,
+// and the node-jsx only works when in index.server.js
+require('node-jsx').install();
 
-app.use(compression());
+/* Paths */
+const ROOTDIR = process.cwd();
 
-const listener = app.listen(process.env.PORT || 8888, () => {
-  console.log(`server running on ${listener.address().port}`);
+/* Modules */
+const routes = require('./routes/index.routes.server.js')(Server, ROOTDIR);
+
+// Booting up the server
+const listener = Server.listen(process.env.PORT || 8888, () => {
+	console.log(`🌎  ::  Backoffice Server :: running on ${listener.address().port}`);
 });
 
-
-app.get('/', function(req, res, next) {
-  console.log(Component);
-  res.send(Component);
-})
+/* Configuration of the server */
+Server.use(compression());
+Server.use(bodyParser.json());
