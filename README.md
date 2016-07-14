@@ -1,3 +1,5 @@
+[![Dependency Status](https://dependencyci.com/github/pmadruga/universal-app-starter/badge)](https://dependencyci.com/github/pmadruga/universal-app-starter)
+
 # Universal starter pack
 Something to use to bootstrap a project fastly. 
 NodeJS serving a React-rendered website.
